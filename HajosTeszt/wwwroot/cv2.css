@@ -1,0 +1,77 @@
+﻿* {
+    box-sizing: border-box;
+    font-family: 'DotGothic16', sans-serif;
+}
+
+body {
+    font-weight: bold;
+    text-align: center;
+}
+
+#header {
+    background-color: turquoise;
+    padding: 20px;
+}
+
+#nav a {
+    flex-basis: auto;
+    text-decoration: none;
+    color: black;
+}
+
+#nav {
+    background: deepskyblue;
+    padding: 20px;
+    align-content: space-between;
+}
+
+#article {
+    text-align: left;
+    background: gold;
+    padding: 20px;
+    display: flex;
+}
+
+#aside {
+    background-color: lightgreen;
+    padding: 20px;
+}
+
+#footer {
+    background-color: hotpink;
+    padding: 20px;
+}
+
+img {
+    max-width: 80%;
+    max-height: 400px;
+    align-self: left;
+    display: block;
+    margin: auto;
+}
+
+@media screen and (min-width: 800px) {
+    body {
+        display: flex;
+        flex-direction: column;
+        max-width: 1500px;
+        margin: auto;
+    }
+
+    #main {
+        display: flex;
+    }
+
+    #nav,
+    #header {
+        order: -2;
+    }
+
+    #article {
+        flex: 1 1 65%;
+    }
+
+    #aside {
+        flex: 1 1 35%;
+    }
+}
