@@ -1,21 +1,21 @@
 var kérdések;
-var jelenlegiKérdés = 0;
+var jelenlegiKérdés = 1;
 
-function letoltes(){
+window.onload = kérdésBetöltés(jelenlegiKérdés);
 
-    fetch('/questions.json')
-    .then(Response => Response.json())
-    .then(adat=> adatÉrkezett(adat));
 
-    console.log("Leltöltés kész!")
-}
-
-function adatÉrkezett(adat){
-
-    console.log(`${adat.length} kérdés érketett`);
-    letöltésBefejeződött(adat);
-
-}
+function kérdésBetöltés(id) {
+    fetch(`/questions/${id}`)
+        .then(response => {
+            if (!response.ok) {
+                console.error(`Hibás válasz: ${response.status}`)
+            }
+            else {
+                return response.json()
+            }
+        })
+        .then(data => letöltésBefejeződött(data));
+}    
 
 function letöltésBefejeződött(d){
 
@@ -23,8 +23,8 @@ function letöltésBefejeződött(d){
     console.log(d);
     kérdések = d;
 
-    kérdésMegjelenítés(jelenlegiKérdés);
-    console.log("jelenlegi kérdés megjelenítve")
+    kérdésMegjelenítés(d);
+    console.log("jelenlegi kérdés megjelenítve");
 
     let előre = document.getElementById("előre");
     let vissza = document.getElementById("vissza");
@@ -33,16 +33,25 @@ function letöltésBefejeződött(d){
     let válasz2 = document.getElementById("válasz2");
     let válasz3 = document.getElementById("válasz3");
 
-    előre.addEventListener('click', () => { kérdésVáltó(1) });
-    vissza.addEventListener('click', () => { kérdésVáltó(-1) });
+    válasz1.classList.remove("jó");
+    válasz1.classList.remove("rossz");
+    válasz2.classList.remove("jó");
+    válasz2.classList.remove("rossz");
+    válasz3.classList.remove("jó");
+    válasz3.classList.remove("rossz");
+    
 
-    válasz1.addEventListener('click', () => { választVálasz(1, válasz1) });
-    válasz2.addEventListener('click', () => { választVálasz(2, válasz2) });
-    válasz3.addEventListener('click', () => { választVálasz(3, válasz3) });
+    előre.addEventListener('click', () => { előreLépés(); });
+    vissza.addEventListener('click', () => { visszaLépés(); });
+
+    var jóVálasz = kérdések.correctAnswer;
+    console.log("jóválasz:" + jóVálasz);
+
+    válasz1.addEventListener('click', () => { választVálasz(1, válasz1, jóVálasz); console.log("1-es kattintás") });
+    válasz2.addEventListener('click', () => { választVálasz(2, válasz2, jóVálasz); console.log("2-es kattintás") });
+    válasz3.addEventListener('click', () => { választVálasz(3, válasz3, jóVálasz); console.log("3-es kattintás") });
 
 }
-
-window.onload = letoltes();
 
 function kérdésMegjelenítés(i) {
 
@@ -52,15 +61,15 @@ function kérdésMegjelenítés(i) {
     let kép= document.getElementById("kép1");
 
     
-    kérdés_szöveg.innerHTML=kérdések[i].questionText;
-    válasz1.innerHTML=kérdések[i].answer1;
-    válasz2.innerHTML=kérdések[i].answer2;
-    válasz3.innerHTML=kérdések[i].answer3;
-
+    kérdés_szöveg.innerText=i.questionText;
+    válasz1.innerText=i.answer1;
+    válasz2.innerText=i.answer2;
+    válasz3.innerText = i.answer3;
+    
  
-    if(kérdések[i].image !="")
+    if(i.image !="")
     {
-        kép.src="https://szoft1.comeback.hu/hajo/"+kérdések[i].image
+        kép.src="https://szoft1.comeback.hu/hajo/"+i.image
         kép.hidden=false;
     }
     else
@@ -70,35 +79,39 @@ function kérdésMegjelenítés(i) {
     
 }
 
-function kérdésVáltó(irány) {
-    if (irány > 0) {
-        if (jelenlegiKérdés + 1 > kérdések.length - 1) {
-            jelenlegiKérdés = 0;
-        }
-        else {
-            jelenlegiKérdés++;
-        }
-    }
-    else {
-        if (jelenlegiKérdés - 1 == -1) {
-            jelenlegiKérdés = kérdések.length - 1;
-        }
-        else {
-            jelenlegiKérdés--;
-        }
-    }
-    
-    kérdésMegjelenítés(jelenlegiKérdés);
-    
-
+function előreLépés() {
+    jelenlegiKérdés++;
+    console.log("lépés előre" + "jelenlegi kérdés: " + jelenlegiKérdés)
+    kérdésBetöltés(jelenlegiKérdés)
 }
 
-function választVálasz(i, btnRef) {
-    let jóVálasz = kérdések[jelenlegiKérdés].correctAnswer;
-    if (jóVálasz == i) {
+function visszaLépés() {
+    jelenlegiKérdés--;
+    console.log("lépés vissza" + "jelenlegi kérdés: " + jelenlegiKérdés)
+    kérdésBetöltés(jelenlegiKérdés)
+}
+
+function kérdésVáltó(irány) {
+    if (irány < 0 && jelenlegiKérdés >= 2) {
+        jelenlegiKérdés = jelenlegiKérdés-1;
+    }
+    if (irány > 0) {
+        jelenlegiKérdés = jelenlegiKérdés+1;
+    }
+    console.log(jelenlegiKérdés);
+    kérdésBetöltés(jelenlegiKérdés);
+}
+
+function választVálasz(b, btnRef, jóVálasz) {
+    if (jóVálasz == b) {
         btnRef.classList.add("jó");
     }
     else {
         btnRef.classList.add("rossz")
     }
-}   
+}
+
+
+
+
+
