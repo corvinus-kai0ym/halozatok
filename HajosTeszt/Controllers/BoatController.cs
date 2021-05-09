@@ -34,9 +34,7 @@ namespace HajosTeszt.Controllers
 
             if (kérdés == null) return BadRequest("Nincs ilyen számú kérdés!");
             return new JsonResult(kérdés);
-            {
-
-            }
+           
 
         }
 

@@ -1,6 +1,8 @@
 var kérdések;
 var jelenlegiKérdés = 1;
 
+
+
 window.onload = kérdésBetöltés(jelenlegiKérdés);
 
 
