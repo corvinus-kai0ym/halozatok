@@ -1,0 +1,14 @@
+﻿using System;
+using System.Collections.Generic;
+
+#nullable disable
+
+namespace HajosTeszt.Italok
+{
+    public partial class Italok
+    {
+
+        public string ItalNev { get; set; }
+        public int ItalÁr { get; set; }
+    }
+}

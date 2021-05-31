@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "secrets1": {
+      "type": "secrets.user"
+    },
+    "mssql1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/kai0ym-covinus/databases/mysql-corvinus",
+      "type": "mssql.azure",
+      "connectionId": "kai0ym-corvinus",
+      "secretStore": "LocalSecretsFile"
+    }
+  }
+}

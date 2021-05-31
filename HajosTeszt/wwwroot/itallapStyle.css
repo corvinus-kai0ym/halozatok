@@ -1,0 +1,52 @@
+﻿html, body {
+    height: 100%;
+    background-color: #303030;
+    color: ghostwhite;
+    font-family: 'Source Code Pro', monospace;
+}
+
+div {
+    margin: 10px;
+}
+
+#külső {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+h1 {
+    padding: 25px;
+    text-align: center;
+    border: 2px solid white;
+    border-radius: 10px;
+}
+
+.gomb {
+    padding: 10px;
+    width: 200px;
+    border-radius: 10px;
+    text-align: center;
+    border: solid 1px ghostwhite;
+}
+.gomb:hover {
+        background-color: #303030;
+        color:ghostwhite;
+    }
+.input {
+    padding: 10px;
+    margin:4px;
+    width: 200px;
+    border-radius: 10px;
+    text-align: center;
+    border: solid 1px ghostwhite;
+}
+
+#italList{
+    text-align:center;
+    line-height: 150%;
+}
+#italCount {
+    text-align: center;
+    line-height: 150%;
+}

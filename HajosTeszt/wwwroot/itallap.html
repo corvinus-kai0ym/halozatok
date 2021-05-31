@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet">
+    <link href="itallapStyle.css" rel="stylesheet">
+    <script src="ital.js"></script>
+    <title></title>
+</head>
+<body>
+    <form>
+        <div>
+            <input class="input" id="italNevText" type="text" placeholder="Ital neve " />
+
+            <input class="input" id="italÁrText" type="text" placeholder="Ital ára " />
+            <button class="gomb" id="addButton" onclick="ItalHozzadas()">Ital felvétele</button>
+
+            <br />
+            <input class="input" id="torlendoItal" type="text" placeholder="Törlendő ital neve " />
+            <button class="gomb" id="removeButton" onclick="ItalTorles()">Ital törlése</button> <br />
+            <button class="gomb" id="loadButton" onclick="ItalBetoltes()">Itallap betöltése</button>
+        </div>
+
+
+        <div id="italList">
+            <h1>Itallap</h1>
+        </div>
+        <div id="italCount">
+        </div>
+    </form>
+</body>
+</html>
+
